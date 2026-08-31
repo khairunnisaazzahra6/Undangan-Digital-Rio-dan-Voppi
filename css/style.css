@@ -1,0 +1,1571 @@
+/* =====================================================
+   VOPPI & RIO — WEDDING
+   MAIN STYLE (CLEAN & OPTIMIZED)
+===================================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --cream: #f4eee4;
+    --paper: #fbf7ef;
+    --paper-dark: #eee4d4;
+
+    --green: #58634a;
+    --green-dark: #30392b;
+
+    --wine: #7b2935;
+    --wine-dark: #5d2029;
+
+    --gold: #b69561;
+    --gold-light: #d6bd8e;
+
+    --ink: #34342f;
+    --muted: #777267;
+
+    --white: #fffdf8;
+
+    --shadow-sm: 0 8px 25px rgba(47, 42, 32, .08);
+    --shadow: 0 20px 60px rgba(47, 42, 32, .12);
+
+    --radius: 2px;
+
+    --font-display: "Cormorant Garamond", serif;
+    --font-script: "Great Vibes", cursive;
+    --font-body: "DM Sans", sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 30px;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100%;
+    overflow-x: hidden;
+    background:
+        radial-gradient(circle at top, rgba(255, 255, 255, .8), transparent 35%),
+        var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+body.modal-open,
+body.gate-open {
+    overflow: hidden;
+}
+
+/* Mengatur ukuran khusus untuk foto pengantin di halaman opening */
+.gate-center-card .gate-frame.hero-couple-frame {
+    width: 200px !important;  /* Lebar frame foto (bisa diubah sesuai selera) */
+    height: 300px !important; /* Tinggi frame foto */
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* =====================================================
+   MOBILE PORTRAIT WRAPPER FRAME
+===================================================== */
+
+.invitation {
+    width: min(100%, 480px);
+    margin: 0 auto;
+    background: var(--paper);
+    overflow-x: hidden;
+}
+
+.invitation.is-locked {
+    height: 100vh;
+    overflow: hidden;
+    visibility: hidden;
+}
+/* =====================================================
+   FIX GATE SCREEN & FLORAL POSITIONING
+===================================================== */
+
+.gate-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7eddf;
+    overflow: hidden;
+}
+
+/* Panel Pintu Kiri dan Kanan */
+.gate-panel {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    height: 100%;
+    background-color: #f7eddf;
+    z-index: 1;
+    overflow: hidden;
+    transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.gate-left {
+    left: 0;
+    border-right: 1px solid rgba(182, 149, 97, 0.2);
+}
+
+.gate-right {
+    right: 0;
+    border-left: 1px solid rgba(182, 149, 97, 0.2);
+}
+
+/* 1. PERBAIKAN BUNGA: Diberi batas lebar agar tidak menutupi tengah */
+.floral-gate {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40%; /* Hanya memenuhi 40% dari panel pintunya */
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.floral-gate-left {
+    left: 0;
+}
+
+.floral-gate-right {
+    right: 0;
+}
+
+.flower-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* 2. PERBAIKAN KARTU TENGAH: Dipastikan berada di paling depan */
+.gate-center-card {
+    position: relative;
+    z-index: 20; /* Lebih tinggi dari z-index bunga (2) & pintu (1) */
+    width: min(100%, 340px);
+    padding: 24px 18px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #b69561;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Animasi Buka Pintu */
+body.gate-open .gate-left {
+    transform: translateX(-100%);
+}
+
+body.gate-open .gate-right {
+    transform: translateX(100%);
+}
+
+body.gate-open .gate-center-card {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+body.gate-open .gate-screen {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition-delay: 0.8s;
+}
+/* =====================================================
+   GLOBAL SECTION COMPONENTS
+===================================================== */
+
+.section {
+    position: relative;
+    min-height: 100svh;
+    width: 100%;
+    padding: 100px 20px 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.section-inner,
+.section-heading {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+    text-align: center;
+}
+
+.section-heading {
+    margin-bottom: clamp(35px, 6vw, 55px);
+}
+
+.eyebrow {
+    display: block;
+    margin-bottom: 14px;
+    color: var(--green);
+    font-size: .52rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    line-height: 1.4;
+    text-transform: uppercase;
+}
+
+h1, h2, h3, blockquote {
+    font-family: var(--font-display);
+}
+
+h2 {
+    color: var(--green-dark);
+    font-size: 2.25rem;
+    font-weight: 500;
+    line-height: .95;
+}
+
+p {
+    color: var(--muted);
+    font-size: .82rem;
+    line-height: 1.8;
+}
+
+.btn {
+    min-height: 46px;
+    padding: 0 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    font-size: .55rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-dark {
+    background: var(--green-dark);
+    color: var(--white);
+}
+
+.btn-light {
+    background: rgba(255, 253, 248, .95);
+    color: var(--green-dark);
+}
+
+.btn-outline {
+    border-color: rgba(79, 88, 64, .35);
+    background: transparent;
+    color: var(--green-dark);
+}
+
+/* =====================================================
+   HERO SECTION
+===================================================== */
+
+.hero {
+    background:
+        linear-gradient(180deg, rgba(244, 238, 228, .1), rgba(244, 238, 228, .85)),
+        url("../assets/images/background.png") center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 15px;
+}
+
+.hero-inner {
+    position: relative;
+    z-index: 2;
+    width: 92%;
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 28px 18px 24px;
+    background: rgba(251, 247, 239, 0.94);
+    border: 1px solid rgba(182, 149, 97, .3);
+    box-shadow: var(--shadow);
+    text-align: center;
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-couple-frame {
+    position: relative;
+    width: 130px;
+    height: 165px;
+    margin: 0 auto 16px;
+    border-radius: 70px 70px 10px 10px;
+    border: 2px solid var(--gold);
+    padding: 3px;
+    background: #fff;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    flex-shrink: 0;
+}
+
+.hero-couple-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 64px 64px 6px 6px;
+    display: block;
+}
+
+.hero .eyebrow {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 2.5px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 4px 0;
+}
+
+.hero-date {
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    color: var(--green);
+    margin: 0 0 12px 0;
+}
+
+.hero-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--wine);
+    font-family: var(--font-script);
+    font-size: 3.4rem;
+    line-height: 0.1;
+    margin: 10px 0 14px 0;
+}
+
+.hero-title div {
+    width: 100%;
+    text-align: center;
+    margin: 4px 0 14px 0;
+}
+
+.hero-title span {
+    display: block;
+    font-size: 2.6rem;
+    margin: -8px 0;
+    opacity: 0.9;
+    margin: 4px 0 14px 0;
+}
+
+.hero-subtitle {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--muted);
+    max-width: 300px;
+    margin: 4px 0 14px 0;
+}
+
+.hero-ornament {
+    margin-top: 14px;
+    color: var(--gold);
+    font-size: 0.9rem;
+}
+
+/* =====================================================
+   QUOTE SECTION
+===================================================== */
+
+.quote-section {
+    background: var(--paper);
+}
+
+blockquote {
+    color: var(--green-dark);
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.quote-source {
+    margin-top: 25px;
+    color: var(--wine);
+    font-size: 1rem;
+}
+
+/* =====================================================
+   COUPLE SECTION
+===================================================== */
+
+.couple-section {
+    padding-top: 50px;
+    padding-bottom: 70px;
+}
+
+.couple-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.couple-grid .person-card {
+    flex: 1 1 0%;
+    width: 0;
+    text-align: center;
+}
+
+.person-card .portrait {
+    width: 100px;
+    height: 135px;
+    margin: 0 auto 12px;
+    border-radius: 60px 60px 8px 8px;
+    border: 2px solid var(--gold);
+    padding: 3px;
+    background: var(--paper);
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.portrait-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 56px 56px 6px 6px;
+    display: block;
+}
+
+.portrait-label {
+    display: none;
+}
+
+.person-card .person-role {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.45rem;
+    letter-spacing: 0.15em;
+    line-height: 1.2;
+}
+
+.person-card h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.00rem !important; /* Pakai !important agar tidak bisa ditimpa */
+    line-height: 1.2;
+    font-weight: 600;
+    white-space: nowrap !important;
+}
+
+.person-card p {
+    margin-top: 6px;
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    line-height: 1.4;
+    opacity: 0.8;
+}
+
+.couple-grid .ampersand {
+    flex: 0 0 auto;
+    margin-top: 35px;
+    font-family: var(--font-script);
+    font-size: 1.8rem;
+    line-height: 1;
+    text-align: center;
+    color: var(--gold);
+}
+
+/* =====================================================
+   EVENT SECTION
+===================================================== */
+
+.event-section {
+    background: var(--green);
+     line-height: 1.2;
+    font-weight: 600;
+}
+
+.event-section h2 {
+    color: var(--black);
+    line-height: 1.2;
+    font-weight: 600;
+}
+
+.event-section .eyebrow {
+    color: var(--gold-light);
+}
+
+.event-grid {
+    width: 100%;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.event-card {
+    position: relative;
+    padding: 42px 28px;
+    overflow: hidden;
+    background: var(--paper);
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.event-number {
+    position: absolute;
+    top: -4px;
+    right: 15px;
+    color: rgba(182, 149, 97, .18);
+    font-family: var(--font-display);
+    font-size: 5rem;
+    
+}
+
+.event-card h3 {
+    margin: 14px 0;
+    color: var(--green-dark);
+    font-size: 1.65rem;
+    font-weight: 500;
+}
+
+.event-card p {
+    font-size: .65rem;
+}
+
+.event-card .event-time {
+    margin-bottom: 12px;
+    color: var(--wine);
+    font-weight: 700;
+    font-size: .58rem;
+}
+
+.event-card .btn {
+    margin-top: 22px;
+}
+
+/* =====================================================
+   COUNTDOWN SECTION
+===================================================== */
+
+.countdown-section {
+    background: var(--paper);
+    text-align: center;
+}
+
+.countdown {
+    width: 100%;
+    margin: 45px auto 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid rgba(79, 88, 64, .2);
+    border-bottom: 1px solid rgba(79, 88, 64, .2);
+}
+
+.countdown > div {
+    padding: 22px 8px;
+}
+
+.countdown strong {
+    display: block;
+    color: var(--wine);
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 8vw, 4rem);
+    font-weight: 500;
+}
+
+.countdown span {
+    display: block;
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: .55rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+}
+
+/* =====================================================
+   MAPS SECTION
+===================================================== */
+
+.maps-section { 
+    background: var(--cream); 
+}
+
+.map-card { 
+    width: 100%; 
+    background: var(--paper); 
+    box-shadow: var(--shadow); 
+}
+
+.map-placeholder { 
+    min-height: 250px; 
+    padding: 30px; 
+    display: grid; 
+    place-content: center; 
+    text-align: center; 
+    background: linear-gradient(135deg, #e9ddcb, #faf4e9); 
+}
+
+.map-pin { 
+    margin-bottom: 10px; 
+    color: var(--wine); 
+    font-size: 4rem; 
+}
+
+.map-info { 
+    padding: 35px; 
+    text-align: center; 
+}
+
+.map-info h3 { 
+    margin-bottom: 8px; 
+    color: var(--green-dark); 
+    font-size: 2.2rem; 
+    font-weight: 500; 
+}
+
+/* =====================================================
+   RSVP SECTION & FORM
+===================================================== */
+
+.rsvp-form {
+    background: #ffffff;
+    padding: 24px 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(182, 149, 97, 0.2);
+    max-width: 400px;
+    margin: 0 auto 30px auto;
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--green-dark);
+    margin-bottom: 8px;
+}
+
+.rsvp-form input[type="text"],
+.rsvp-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #e0d7c6;
+    border-radius: 10px;
+    background: #faf8f5;
+    font-family: inherit;
+    font-size: 0.88rem;
+    color: #333333;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.rsvp-form input[type="text"]:focus,
+.rsvp-form textarea:focus {
+    border-color: var(--gold);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(182, 149, 97, 0.15);
+}
+
+.attendance-options {
+    display: flex;
+    gap: 10px;
+}
+
+.attendance-btn {
+    flex: 1;
+    cursor: pointer;
+    margin: 0;
+}
+
+.attendance-btn input[type="radio"] {
+    display: none;
+}
+
+.attendance-btn .btn-custom {
+    display: block;
+    text-align: center;
+    padding: 10px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid #e0d7c6;
+    border-radius: 8px;
+    background: #faf8f5;
+    color: #666666;
+    transition: all 0.25s ease;
+}
+
+.attendance-btn input[type="radio"]:checked + .btn-custom {
+    background: var(--green-dark);
+    color: #ffffff;
+    border-color: var(--green-dark);
+    box-shadow: 0 4px 10px rgba(59, 68, 49, 0.2);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background: var(--wine);
+    color: #ffffff;
+    border: 0;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-submit:hover {
+    background: var(--wine-dark);
+}
+
+.wishes-wrap {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.wishes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 0 4px;
+}
+
+.wishes-header h3 {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.btn-reset {
+    background: transparent;
+    border: 1px solid #dcd3c3;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    color: #888888;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-reset:hover {
+    background: #f0e8db;
+    color: #333333;
+}
+
+/* =====================================================
+   WISHES LIST (CARD CHAT STYLE)
+===================================================== */
+
+.wishes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 400px;
+    margin: 0 auto 16px auto;
+    max-height: 380px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.wishes-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.wishes-list::-webkit-scrollbar-thumb {
+    background: #d0c3b0;
+    border-radius: 4px;
+}
+
+.wish-card,
+.wishes-list > div {
+    background: #ffffff;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(182, 149, 97, 0.18);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.wish-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.wish-name {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin: 0;
+}
+
+.wish-badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+    background: #eaf2e8;
+    color: #2e6930;
+    display: inline-block;
+}
+
+.wish-badge.absent {
+    background: #fbeee8;
+    color: #a84222;
+}
+
+.wish-message {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: #4a4a4a;
+    margin: 0;
+    white-space: pre-line;
+}
+
+.wish-time {
+    font-size: 0.65rem;
+    color: #a0a0a0;
+    align-self: flex-end;
+    margin-top: 2px;
+}
+
+/* =====================================================
+   STORY SECTION
+===================================================== */
+
+.story-section { 
+    background: var(--green); 
+}
+
+.story-section h2 { 
+    color: var(--white); 
+}
+
+.story-section .eyebrow { 
+    color: var(--gold-light); 
+}
+
+.timeline { 
+    position: relative; 
+    width: 100%; 
+    margin-inline: auto; 
+}
+
+.timeline::before { 
+    content: ""; 
+    position: absolute; 
+    top: 0; 
+    bottom: 0; 
+    left: 75px; 
+    width: 1px; 
+    background: rgba(255, 253, 248, .25); 
+}
+
+.timeline-item { 
+    position: relative; 
+    display: grid; 
+    grid-template-columns: 60px 1fr; 
+    gap: 25px; 
+    padding-bottom: 45px; 
+}
+
+.timeline-item > span { 
+    color: var(--gold-light); 
+    font-family: var(--font-display); 
+    font-size: 1.5rem; 
+    text-align: right; 
+}
+
+.timeline-item h3 { 
+    color: var(--white); 
+    font-size: 1.6rem; 
+    font-weight: 500; 
+}
+
+.timeline-item p { 
+    margin-top: 6px; 
+    color: #ded8cc; 
+    font-size: .78rem; 
+}
+
+/* =====================================================
+   GALLERY SECTION (3x3 UNIFORM)
+===================================================== */
+
+.gallery-grid {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.gallery-item {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border: 0;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #e4d8c8, #f4eee4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    padding: 0;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.gallery-item span {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--wine);
+    font-weight: 600;
+    z-index: 2;
+}
+
+/* =====================================================
+   GIFT SECTION (ATM / E-WALLET CARD STYLE)
+===================================================== */
+
+.gift-section {
+    background: var(--paper);
+}
+
+.rekening-grid {
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Style Kartu ATM */
+.bank-card {
+    position: relative;
+    width: 100%;
+    padding: 22px 24px;
+    border-radius: 18px;
+    /* Gradasi metallic perak elegan */
+    background: linear-gradient(135deg, #e6e6e6 0%, #ffffff 50%, #cccccc 100%);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    text-align: left;
+    overflow: hidden;
+}
+
+/* Bagian Atas Kartu (Nama Bank + Logo) */
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.bank-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #333333;
+    font-family: var(--font-body);
+}
+
+.bank-logo {
+    height: 26px;
+    object-fit: contain;
+}
+
+/* Sim Chip Emas */
+.chip {
+    width: 44px;
+    height: 32px;
+    background: linear-gradient(135deg, #e6ca65, #b8860b);
+    border-radius: 6px;
+    margin-bottom: 16px;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.chip::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+/* Nomor Rekening */
+.card-number {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #111111;
+    font-family: monospace, monospace;
+    margin-bottom: 10px;
+}
+
+/* Tombol Salin Rekening */
+.btn-copy {
+    display: inline-block;
+    padding: 6px 14px;
+    background: #a38550; /* Warna cokelat/gold sesuai contoh */
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: background 0.3s ease;
+}
+
+.btn-copy:hover {
+    background: #876c3e;
+}
+
+/* Nama Pemilik Rekening */
+.card-holder {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #444444;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Tombol Konfirmasi Bukti Transfer */
+.confirm-wrap {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.btn-confirm {
+    display: inline-block;
+    padding: 12px 28px;
+    background: #a38550;
+    color: #ffffff;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(163, 133, 80, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-confirm:hover {
+    background: #876c3e;
+    transform: translateY(-2px);
+}
+.thanks-section { 
+    min-height: 85svh; 
+    background: linear-gradient(180deg, rgba(244, 238, 228, .05), rgba(244, 238, 228, .72)), url("../assets/images/1.jpeg") center / cover no-repeat; 
+}
+
+.thanks-section .section-inner { 
+    padding: 50px 25px; 
+    background: rgba(251, 247, 239, .84); 
+    box-shadow: var(--shadow); 
+}
+
+.thanks-section h2 { 
+    margin-bottom: 22px; 
+    color: var(--wine); 
+    font-size: clamp(2.6rem, 9vw, 4rem); 
+}
+
+.thanks-section strong { 
+    display: block; 
+    margin-top: 8px; 
+    color: var(--green-dark); 
+    font-family: var(--font-script); 
+    font-size: 3.3rem; 
+    font-weight: 400; 
+}
+
+/* =====================================================
+   BOTTOM NAVIGATION (SWIPEABLE / SCROLLABLE)
+===================================================== */
+
+.bottom-nav {
+    position: fixed;
+    z-index: 80;
+    left: 50%;
+    bottom: 12px;
+    width: min(calc(100% - 24px), 440px);
+    padding: 6px;
+    transform: translate(-50%, 120px);
+    opacity: 0;
+    border: 1px solid rgba(182, 149, 97, 0.25);
+    background: rgba(251, 247, 239, 0.94);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 16px;
+    transition: transform .6s cubic-bezier(.22, 1, .36, 1), opacity .4s ease;
+}
+
+.bottom-nav.visible {
+    transform: translateX(-50%);
+    opacity: 1;
+}
+
+.nav-scroll-container {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    gap: 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    padding: 2px;
+}
+
+.nav-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.nav-scroll-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.nav-scroll-container .nav-item {
+    flex: 0 0 64px;
+    width: 64px;
+    min-width: 64px;
+    height: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--muted);
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.nav-scroll-container .nav-item span,
+.nav-scroll-container .nav-item .nav-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+    display: block;
+}
+
+.nav-scroll-container .nav-item small {
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    display: block;
+    white-space: nowrap;
+}
+
+.nav-scroll-container .nav-item.active {
+    background: var(--green);
+    color: #ffffff;
+}
+
+/* =====================================================
+   MUSIC TOGGLE BUTTON
+===================================================== */
+
+.music-toggle {
+    position: fixed;
+    z-index: 85;
+    top: 15px;
+    right: max(14px, calc((100vw - 480px) / 2 + 14px));
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(79, 88, 64, .2);
+    border-radius: 50%;
+    background: rgba(251, 247, 239, .9);
+    color: var(--wine);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(.8);
+    backdrop-filter: blur(10px);
+    transition: opacity .4s ease, visibility .4s ease, transform .4s ease;
+}
+
+.music-toggle.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+/* =====================================================
+   MEDIA QUERIES FOR SMALL SCREENS
+===================================================== */
+
+@media (max-width: 380px) {
+    .section {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+    
+    .person-card .portrait {
+        width: 90px;
+        height: 120px;
+    }
+
+    .person-card h3 {
+        font-size: 1rem;
+    }
+
+    .person-card p {
+        font-size: 0.52rem;
+    }
+
+    .couple-grid .ampersand {
+        font-size: 1.5rem;
+        margin-top: 28px;
+    }
+}
+
+/* =====================================================
+   LIGHTBOX / POP-UP FOTO
+===================================================== */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 80vh;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    object-fit: contain;
+    animation: zoomIn 0.3s ease;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* =====================================================
+   THANKS SECTION (CUSTOM STYLING)
+===================================================== */
+.thanks-section {
+    padding: 60px 20px 80px;
+    text-align: center;
+}
+
+.thanks-text {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--ink);
+    max-width: 320px;
+    margin: 0 auto 20px;
+    opacity: 0.85;
+}
+
+.thanks-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 24px;
+}
+
+.thanks-subtext {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 12px;
+}
+
+/* Grid Layout Keluarga Samping-Sampingan */
+.family-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.family-item {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--ink);
+}
+
+.family-item strong {
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+/* Watermark & Music Info */
+.thanks-footer {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.thanks-footer .watermark {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin: 0;
+}
+
+.thanks-footer .brand-logo {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: var(--ink);
+    margin: 4px 0;
+}
+
+.thanks-footer .music-info {
+    font-size: 0.7rem;
+    color: var(--muted);
+    line-height: 1.3;
+    margin: 0;
+}
+/* Frame Kotak Rounded Square */
+.brand-logo-frame {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px; /* Sudut melengkung (rounded square) */
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Bayangan halus */
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4px 0;
+}
+
+/* Gambar Logo di Dalam Frame */
+.brand-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.map-placeholder {
+    width: 100%;
+    height: 250px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1; /* Memastikan posisi peta ada di atas pembungkusnya */
+}
+
+.map-placeholder iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: auto !important; /* Memaksa klik & interaksi sentuhan aktif */
+}
+.quote-section {
+    position: relative;
+    background: linear-gradient(180deg, rgba(251, 247, 239, 0.85), rgba(251, 247, 239, 0.85)),
+                url("../assets/images/background.png") center/cover no-repeat; /* Sesuaikan nama file gambarmu */
+    padding: 80px 20px;
+}
+
+.couple-section {
+    position: relative;
+    background: linear-gradient(180deg, rgba(251, 247, 239, 0.85), rgba(251, 247, 239, 0.85)),
+                url("../assets/images/background.png") center/cover no-repeat; /* Sesuaikan nama file gambarmu */
+    padding: 80px 20px;
+}
+
+.gallery-section {
+    position: relative;
+    background: linear-gradient(180deg, rgba(251, 247, 239, 0.85), rgba(251, 247, 239, 0.85)),
+                url("../assets/images/background.png") center/cover no-repeat; /* Sesuaikan nama file gambarmu */
+    padding: 80px 20px;
+}
+.gift-section {
+    position: relative;
+    background: linear-gradient(180deg, rgba(251, 247, 239, 0.85), rgba(251, 247, 239, 0.85)),
+                url("../assets/images/background.png") center/cover no-repeat; /* Sesuaikan nama file gambarmu */
+    padding: 80px 20px;
+}
+.rsvp-section {
+    position: relative;
+    background: linear-gradient(180deg, rgba(251, 247, 239, 0.85), rgba(251, 247, 239, 0.85)),
+                url("../assets/images/background.png") center/cover no-repeat; /* Sesuaikan nama file gambarmu */
+    padding: 80px 20px;
+}
+.map-section {
+    position: relative;
+    background: linear-gradient(180deg, rgba(251, 247, 239, 0.85), rgba(251, 247, 239, 0.85)),
+                url("../assets/images/background.png") center/cover no-repeat; /* Sesuaikan nama file gambarmu */
+    padding: 80px 20px;
+}
+.countdown-section {
+    position: relative;
+    background: linear-gradient(180deg, rgba(251, 247, 239, 0.85), rgba(251, 247, 239, 0.85)),
+                url("../assets/images/background.png") center/cover no-repeat; /* Sesuaikan nama file gambarmu */
+    padding: 80px 20px;
+}
+.event-section {
+    position: relative;
+    background: linear-gradient(180deg, rgba(251, 247, 239, 0.85), rgba(251, 247, 239, 0.85)),
+                url("../assets/images/background.png") center/cover no-repeat; /* Sesuaikan nama file gambarmu */
+    padding: 80px 20px;
+}
+.maps-section {
+    position: relative;
+    background: linear-gradient(180deg, rgba(251, 247, 239, 0.85), rgba(251, 247, 239, 0.85)),
+                url("../assets/images/background.png") center/cover no-repeat; /* Sesuaikan nama file gambarmu */
+    padding: 80px 20px; 
+}
+
+/* Efek Kelopak Bunga Mengikuti Gambar Asli */
+.falling-petals {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 99;
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  top: -10%;
+  background-image: url('../assets/images/flower-petal.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 50% 20% 50% 20%; /* Biar bentuknya melengkung natural ala kelopak bunga */
+  opacity: 0.75;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(50vh) translateX(40px) rotate(180deg);
+  }
+  100% {
+    transform: translateY(110vh) translateX(-30px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Ukuran kelopak dibuat pas, tidak terlalu besar supaya tetap manis */
+.petal:nth-child(1) { width: 24px; height: 30px; left: 10%; animation-duration: 7s; animation-delay: 0s; }
+.petal:nth-child(2) { width: 18px; height: 24px; left: 30%; animation-duration: 10s; animation-delay: 2s; }
+.petal:nth-child(3) { width: 28px; height: 35px; left: 50%; animation-duration: 6s; animation-delay: 1s; }
+.petal:nth-child(4) { width: 20px; height: 26px; left: 70%; animation-duration: 8s; animation-delay: 3s; }
+.petal:nth-child(5) { width: 22px; height: 28px; left: 88%; animation-duration: 9s; animation-delay: 1.5s; }

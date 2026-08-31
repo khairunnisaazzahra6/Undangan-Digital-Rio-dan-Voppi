@@ -1,0 +1,108 @@
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+.reveal {
+    opacity: 0;
+
+    transform:
+        translateY(30px);
+
+    transition:
+        opacity .9s ease,
+        transform .9s cubic-bezier(.22, 1, .36, 1);
+}
+
+.reveal.show {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* Slight delay */
+
+.reveal:nth-child(2) {
+    transition-delay: .08s;
+}
+
+.reveal:nth-child(3) {
+    transition-delay: .16s;
+}
+
+.reveal:nth-child(4) {
+    transition-delay: .24s;
+}
+
+
+/* Music */
+
+@keyframes musicSpin {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Opening */
+
+@keyframes gateCenterOut {
+    from {
+        opacity: 1;
+        transform:
+            translate(-50%, -50%)
+            scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform:
+            translate(-50%, -50%)
+            scale(.92);
+    }
+}
+
+
+/* Floating */
+
+@keyframes floating {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.hero-ornament {
+    animation:
+        floating 3s ease-in-out infinite;
+}
+
+
+/* Countdown pulse */
+
+.count-item strong {
+    transition:
+        transform .3s ease;
+}
+
+.count-item:hover strong {
+    transform: scale(1.05);
+}
+
+
+/* Gallery */
+
+.gallery-item {
+    transition:
+        transform .4s cubic-bezier(.22, 1, .36, 1),
+        filter .4s ease;
+}
