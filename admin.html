@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinRa Generator Undangan - Voppi & Rio</title>
+    <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green-dark: #1b3022;
+            --gold: #b6956d;
+            --gold-light: #f4ecdf;
+            --cream: #fbf7f4;
+            --ink: #2c2c2c;
+            --muted: #6b7265;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at top, rgba(27, 48, 34, 0.08), transparent 40%), var(--cream);
+            color: var(--ink);
+            margin: 0;
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .generator-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            padding: 35px 28px;
+            border-radius: 20px;
+            box-shadow: 0 12px 36px rgba(27, 48, 34, 0.08);
+            width: 100%;
+            max-width: 440px;
+            border: 1px solid rgba(182, 149, 97, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Aksen garis tepi elegan di dalam card */
+        .generator-card::before {
+            content: '';
+            position: absolute;
+            top: 8px; left: 8px; right: 8px; bottom: 8px;
+            border: 1px dashed rgba(182, 149, 97, 0.4);
+            border-radius: 14px;
+            pointer-events: none;
+        }
+
+        .header-content {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .eyebrow {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--green-dark);
+            font-size: 2rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        p.subtitle {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 6px;
+            margin-bottom: 0;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--green-dark);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1px solid rgba(182, 149, 97, 0.4);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+            outline: none;
+            background: #fff;
+            color: var(--ink);
+            transition: all 0.25s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--green-dark);
+            box-shadow: 0 0 0 3px rgba(27, 48, 34, 0.08);
+        }
+
+        .btn-generate {
+            width: 100%;
+            padding: 13px;
+            background: var(--green-dark);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+            box-shadow: 0 4px 12px rgba(27, 48, 34, 0.15);
+        }
+
+        .btn-generate:hover {
+            background: #274431;
+            transform: translateY(-1px);
+        }
+
+        .result-box {
+            margin-top: 24px;
+            background: var(--gold-light);
+            padding: 18px;
+            border-radius: 14px;
+            border: 1px solid rgba(182, 149, 97, 0.3);
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .result-box.active {
+            display: block;
+        }
+
+        .result-box p {
+            font-size: 0.75rem;
+            color: var(--green-dark);
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .link-display {
+            background: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            color: var(--green-dark);
+            word-break: break-all;
+            margin-bottom: 12px;
+            border: 1px solid rgba(182, 149, 97, 0.2);
+            line-height: 1.4;
+        }
+
+        .btn-copy {
+            background: var(--gold);
+            color: white;
+            font-size: 0.8rem;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            width: 100%;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-copy:hover {
+            background: #9e7f59;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="generator-card">
+        <div class="header-content">
+            <span class="eyebrow">Dashboard Pengantin</span>
+            <h2>Voppi & Rio</h2>
+            <p class="subtitle">Buat dan salin tautan undangan tamu khusus di sini</p>
+        </div>
+
+        <div class="form-group">
+            <label for="guestName">Nama Tamu Undangan</label>
+            <input type="text" id="guestName" placeholder="Contoh: Budi Santoso & Partner">
+        </div>
+
+        <button class="btn-generate" onclick="generateLink()">Buat Link Undangan</button>
+
+        <div class="result-box" id="resultBox">
+            <p>✨ Link Undangan Berhasil Rara buat!</p>
+            <div class="link-display" id="generatedLinkText"></div>
+            <button class="btn-copy" onclick="copyLink()">
+                <span>📋 Salin Link Undangan</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function generateLink() {
+            const name = document.getElementById('guestName').value.trim();
+            if (!name) {
+                alert('Masukkan nama tamunya dulu ya sayang!');
+                return;
+            }
+
+            const baseUrl = window.location.origin + window.location.pathname.replace('admin.html', '');
+            const finalLink = baseUrl + '?to=' + encodeURIComponent(name);
+
+            document.getElementById('generatedLinkText').innerText = finalLink;
+            document.getElementById('resultBox').classList.add('active');
+        }
+
+        function copyLink() {
+            const linkText = document.getElementById('generatedLinkText').innerText;
+            navigator.clipboard.writeText(linkText).then(() => {
+                alert('Hore Link berhasil disalin! Siap dikirim ke Tamu 🎉');
+            });
+        }
+    </script>
+</body>
+</html>
